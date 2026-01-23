@@ -1,0 +1,8 @@
+node_modules
+build
+dist
+.env
+.DS_Store
+old project/
+terraform/.terraform
+terraform/*.tfstate*
