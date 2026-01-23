@@ -15,3 +15,6 @@ This repository contains the source code and DevOps configuration for the "ChuZo
 - Docker
 - Terraform
 - GitHub Account with Secrets configured (`DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`).
+
+## CI/CD Status
+- Phase 1: CI Implemented.
