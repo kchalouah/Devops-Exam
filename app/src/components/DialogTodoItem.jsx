@@ -15,7 +15,7 @@ import { v4 as uuid } from 'uuid';
 
 const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
     let id = uuid();
-    
+
     const [task, setTask] = useState({
         _id: id,
         title: '',
@@ -35,7 +35,7 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
                 ...task,
                 [e.target.name]: e.target.value,
                 _id: id
-            })  
+            })
         }
     };
 
@@ -50,9 +50,9 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
                 ...task,
                 deadline: e
             })
-        }  
+        }
     };
-    
+
     const submitHandler = () => {
         handleSubmit(task)
         setOpen(false);
@@ -65,17 +65,17 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
     }
 
     useEffect(() => {
-        if( mode === 'edit' ) {
+        if (mode === 'edit') {
             setTask({
                 ...taskEdited
             })
         }
-    },[])
+    }, [mode, taskEdited])
 
-    return(
+    return (
         <Dialog open={open} onClose={() => setOpen(false)} fullWidth={true} maxWidth="xs">
-            <DialogTitle>{ mode === 'add' ? "Add" : "Edit"} Task</DialogTitle>
-                <DialogContent className="my-2 ">
+            <DialogTitle>{mode === 'add' ? "Add" : "Edit"} Task</DialogTitle>
+            <DialogContent className="my-2 ">
                 <Box
                     component="form"
                     noValidate
@@ -83,51 +83,51 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
                     sx={{
                         '& .MuiTextField-root': { my: 2.5 },
                     }}
+                >
+                    <TextField
+                        name="title"
+                        autoFocus
+                        label="Title"
+                        type="text"
+                        fullWidth
+                        value={task.title}
+                        onChange={handleChangeTask}
+                        required
+                    />
+                    <TextField
+                        name="status"
+                        select
+                        label="Status"
+                        defaultValue="Incompelete"
+                        fullWidth
+                        value={task.status}
+                        onChange={handleChangeTask}
+                        required
                     >
-                        <TextField
-                            name="title"
-                            autoFocus
-                            label="Title"
-                            type="text"
-                            fullWidth
-                            value={task.title}
-                            onChange={handleChangeTask}
-                            required
-                        />
-                        <TextField
-                            name="status"
-                            select
-                            label="Status"
-                            defaultValue="Incompelete"
-                            fullWidth
-                            value={task.status}
-                            onChange={handleChangeTask}
-                            required
-                            >
-                                <MenuItem value={false}>Incompelete</MenuItem>
-                                <MenuItem value={true}>Compeleted</MenuItem>
-                        </TextField>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateTimePicker
-                                label="Date&Time picker"
-                                value={task.deadline}
-                                open={dateOpen}
-                                onOpen={() => setDateOpen(true)}
-                                onClose={() => setDateOpen(false)}
-                                onChange={handleChangeDateTask}    
-                                renderInput={(params) => <TextField  fullWidth {...params}
+                        <MenuItem value={false}>Incompelete</MenuItem>
+                        <MenuItem value={true}>Compeleted</MenuItem>
+                    </TextField>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker
+                            label="Date&Time picker"
+                            value={task.deadline}
+                            open={dateOpen}
+                            onOpen={() => setDateOpen(true)}
+                            onClose={() => setDateOpen(false)}
+                            onChange={handleChangeDateTask}
+                            renderInput={(params) => <TextField fullWidth {...params}
                                 onClick={() => setDateOpen(true)} />}
-                            />
-                        </LocalizationProvider> 
-                    </Box>
-                </DialogContent>
-                <DialogActions>
-                    <button onClick={() => setOpen(false)}
+                        />
+                    </LocalizationProvider>
+                </Box>
+            </DialogContent>
+            <DialogActions>
+                <button onClick={() => setOpen(false)}
                     className="bg-gray-300 hover:bg-gray-200 text-gray-600 font-medium rounded-md px-5 py-2">Cancel</button>
-                    <button onClick={submitHandler}  type="submit"
+                <button onClick={submitHandler} type="submit"
                     className="bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-md px-5 py-2">
-                        { mode === 'add' ? "Add" : "Edit"} Task</button>
-                </DialogActions>
+                    {mode === 'add' ? "Add" : "Edit"} Task</button>
+            </DialogActions>
         </Dialog>
     )
 }
