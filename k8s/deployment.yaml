@@ -16,6 +16,7 @@ spec:
       containers:
       - name: todo-app
         image: kchalouah/simple-todo-app:1.0.0
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---

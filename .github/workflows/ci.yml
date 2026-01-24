@@ -49,4 +49,6 @@ jobs:
       with:
         context: ./app
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/simple-todo-app:1.0.0-RC1
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/simple-todo-app:1.0.0-RC1
+          ${{ github.ref == 'refs/heads/main' && format('{0}/simple-todo-app:1.0.0', secrets.DOCKERHUB_USERNAME) || '' }}
