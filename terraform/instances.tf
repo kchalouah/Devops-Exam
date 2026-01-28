@@ -16,7 +16,6 @@ resource "aws_instance" "master" {
   subnet_id     = data.aws_subnet.selected.id
   key_name      = var.key_name
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
-  iam_instance_profile   = "LabInstanceProfile"
 
   root_block_device {
     volume_size = 16
@@ -35,7 +34,6 @@ resource "aws_instance" "workers" {
   subnet_id     = data.aws_subnet.selected.id
   key_name      = var.key_name
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
-  iam_instance_profile   = "LabInstanceProfile"
 
   root_block_device {
     volume_size = 16
